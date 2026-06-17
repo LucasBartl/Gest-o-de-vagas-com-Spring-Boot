@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.lucasbartl.gestao_de_vagas.modules.company.entities.CompanyEntity;
 import br.com.lucasbartl.gestao_de_vagas.modules.company.useCases.CreateCompanyUseCase;
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,7 +20,7 @@ public class CompanyController {
     private CreateCompanyUseCase createCompanyUseCase;
 
     @PostMapping("/")
-    public ResponseEntity create(@RequestBody CompanyEntity companyEntity) {
+    public ResponseEntity create(@Valid @RequestBody CompanyEntity companyEntity) {
 
         try {
             var result = this.createCompanyUseCase.execute(companyEntity);
