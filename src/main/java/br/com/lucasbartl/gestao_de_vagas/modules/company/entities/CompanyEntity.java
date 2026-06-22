@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,7 +27,8 @@ public class CompanyEntity {
 
     @NotBlank()
     @Pattern(regexp = "\\S+", message = "O campo [username] não podem conter espaço")
-    private String username;
+    @Column(name = "`userName`")
+    private String userName;
 
     @Email(message = "O campo deve conter um email valido")
     private String email;

@@ -23,7 +23,8 @@ public class SecurityConfig {
 
             //*Rotas definidas como autenticadas */
             auth.requestMatchers("/candidate/").permitAll()
-            .requestMatchers("/company/").permitAll();
+            .requestMatchers("/company/").permitAll()
+            .requestMatchers("/auth/company").permitAll();
             
             //! Não autenticadas
             auth.anyRequest().authenticated();
