@@ -21,5 +21,5 @@ public interface CandidateRepository extends JpaRepository<CandidateEntity, UUID
     //Utilizando somente o findBy o Spring entende que deve buscar automaticamente 
     // os proximoa campos escritos no caso UsernameOrEmail
     Optional<CandidateEntity> findByUserNameOrEmail(String userName, String Email);
-
+    Optional<CandidateEntity> findByUserName(String userName);
 }

@@ -31,7 +31,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             FilterChain filterChain) // Filtro para validaçoes
             throws ServletException, IOException {
 
-        //Setando contexto do usuário como nulo
+        // Setando contexto do usuário como nulo
         SecurityContextHolder.getContext().setAuthentication(null);
 
         // Coletando o header
@@ -51,10 +51,10 @@ public class SecurityFilter extends OncePerRequestFilter {
                 return;
             }
             request.setAttribute("company_id", subjectToken);
-            //inserindo usuário
-            UsernamePasswordAuthenticationToken auth =
-            new UsernamePasswordAuthenticationToken(subjectToken, null, Collections.emptyList());
-            //Injetando auth no springSecurity
+            // inserindo usuário
+            UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(subjectToken, null,
+                    Collections.emptyList());
+            // Injetando auth no springSecurity
             SecurityContextHolder.getContext().setAuthentication(auth);
 
         }
