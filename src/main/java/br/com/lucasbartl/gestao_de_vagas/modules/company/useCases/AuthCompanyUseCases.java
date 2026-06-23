@@ -2,6 +2,9 @@ package br.com.lucasbartl.gestao_de_vagas.modules.company.useCases;
 
 import org.springframework.security.authentication.BadCredentialsException;
 
+import java.time.Duration;
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,7 +17,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import br.com.lucasbartl.gestao_de_vagas.modules.company.dto.AuthCompanyDTO;
 import br.com.lucasbartl.gestao_de_vagas.modules.company.repositories.CompanyRepository;
 
-//Definindo camada de serviço 
+//Definindo camada de serviço
 @Service
 
 public class AuthCompanyUseCases {
@@ -45,6 +48,8 @@ public class AuthCompanyUseCases {
         // Se for igual, gera o token
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         var token = JWT.create().withIssuer("CeltaVagas")
+                // Definindo tempo para expirar do token
+                .withExpiresAt(Instant.now().plus(Duration.ofHours(2)))
                 .withSubject(company.getId().toString())
                 .sign(algorithm);
 
