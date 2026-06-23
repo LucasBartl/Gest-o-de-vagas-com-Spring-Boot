@@ -9,7 +9,7 @@ import lombok.Data;
 public class AuthCompanyDTO  {
     
     private String password;
-    private String userName; 
+    private String userName;
 
 
 }
