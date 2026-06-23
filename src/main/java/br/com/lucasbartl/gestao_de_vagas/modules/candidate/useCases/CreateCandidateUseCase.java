@@ -1,6 +1,7 @@
 package br.com.lucasbartl.gestao_de_vagas.modules.candidate.useCases;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -19,13 +20,22 @@ public class CreateCandidateUseCase {
     @Autowired
     private CandidateRepository candidateRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public CandidateEntity execute(CandidateEntity candidateEntity) {
-        //Verifica se o username ou email existem no banco, se existir avisa que já esta em uso
-        this.candidateRepository 
-                .findByUserNameOrEmail(candidateEntity.getUserName(), candidateEntity.getEmail())
+        // * Verifica se o username ou email existem no banco,
+        // * se existir avisa que já esta em uso
+        this.candidateRepository
+                .findByUserNameOrEmail(candidateEntity.getUserName(),
+                        candidateEntity.getEmail())
                 .ifPresent((user) -> {
                     throw new UserFoundException();
                 });
+
+        // *Criptografando senha do usuário */
+        var passwordHash = passwordEncoder.encode(candidateEntity.getPassword());
+        candidateEntity.setPassword(passwordHash);
 
         // *Realiza a criaçao dentro do banco de dados
         return this.candidateRepository.save(candidateEntity);
